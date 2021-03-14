@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+  augmentation_api:
+    image: augmentation:latest
+    container_name: augmentation-api
+    hostname: augmentation-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 5000
+    networks:
+      main:
+        aliases:
+          - augmentation-api
+    ports:
+      - 5000:5000
+
+networks:
+  main:
+    driver: bridge
