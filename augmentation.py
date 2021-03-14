@@ -17,10 +17,8 @@ class Augmentation():
             width = int(src.shape[1] * scale_percent / 100)
             height = int(src.shape[0] * scale_percent / 100)
         else:
-            #percent by which the image is resized
-            scale_percent = 50
 
-            #calculate the 50 percent of original dimensions
+            #calculate the scale percent of original dimensions
             width = int(src.shape[1] * breadthScale / 100)
             height = int(src.shape[0] * lengthScale / 100)
 
@@ -32,11 +30,19 @@ class Augmentation():
         output = cv2.resize(src, dsize)
         # D:/cv2-resize-image-50.png
 
-        cv2.imwrite('outputpath',output)
+        return(cv2.imwrite('outputpath',output))
 
-        pass
 
-    def get_crop():
+
+    def get_crop(image):
+
+        image = cv2.imread(r"C:\Users\HP\OneDrive\Desktop\<image>.png")
+        y=0
+        x=0
+        h=300
+        w=510
+        crop_image = image[x:w, y:h]
+
         pass
 
     def get_rotate():
