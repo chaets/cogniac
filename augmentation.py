@@ -1,49 +1,40 @@
-# import cv2
-class Augmentation():
+import cv2
+import numpy as np
+
+class Augmentation:
     """docstring for Augmentation."""
 
-    def __init__(self, arg):
-        pass
+    # def __init__(self):
+    #     pass
         # super(Augmentation, self).__init__()
         # self.arg = arg
 
-    def get_resize(image, outputpath, lengthScale, breadthScale ):
+    def get_resize(image, lengthScale, breadthScale):
         src = cv2.imread(image , cv2.IMREAD_UNCHANGED)
-        if lengthScale = None and breadthScale = None:
-            #percent by which the image is resized
-            scale_percent = 50
-
-            #calculate the 50 percent of original dimensions
-            width = int(src.shape[1] * scale_percent / 100)
-            height = int(src.shape[0] * scale_percent / 100)
-        else:
-
             #calculate the scale percent of original dimensions
-            width = int(src.shape[1] * breadthScale / 100)
-            height = int(src.shape[0] * lengthScale / 100)
-
-
+        width = int(src.shape[1] * breadthScale / 100)
+        length = int(src.shape[0] * lengthScale / 100)
         # dsize
-        dsize = (width, height)
-
+        dsize = (width, length)
         # resize image
         output = cv2.resize(src, dsize)
-        # D:/cv2-resize-image-50.png
-
-        return(cv2.imwrite('outputpath',output))
+        return(output)
 
 
+    def get_crop(image, dim):
+        ima = cv2.imread(image)
+        if dim == None:
+            print(ima.shape[1])
+            x = int(ima.shape[0]/2)
+            y = int(ima.shape[1]/2)
+            cropped = ima[0:x, 0:y]
+        else:
+            cropped = ima[dim[0]:dim[1], dim[2]:dim[3]]
+        return(cropped)
 
-    def get_crop(image):
-
-        image = cv2.imread(r"C:\Users\HP\OneDrive\Desktop\<image>.png")
-        y=0
-        x=0
-        h=300
-        w=510
-        crop_image = image[x:w, y:h]
-
-        pass
-
-    def get_rotate():
-        pass
+    def get_rotate(image, angle):
+        src = cv2.imread(image , cv2.IMREAD_UNCHANGED)
+        image_center = tuple(np.array(src.shape[1::-1]) / 2)
+        rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+        result = cv2.warpAffine(src, rot_mat, src.shape[1::-1], flags=cv2.INTER_LINEAR)
+        return result
