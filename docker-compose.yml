@@ -8,8 +8,6 @@ services:
       context: ./
       dockerfile: Dockerfile
     restart: always
-    expose:
-      - 5000
     networks:
       main:
         aliases:

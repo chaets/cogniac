@@ -1,9 +1,10 @@
-FROM python:3.7.10-slim-buster
+FROM python:3.8-slim
 
 WORKDIR code-directory
 
 # Install necessary packages
 RUN apt-get update
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt-get -y install vim
 RUN apt-get -y install jq
 RUN apt-get -y install curl
@@ -19,10 +20,10 @@ RUN pip install coverage
 RUN pip install requests
 RUN pip install opencv-python
 RUN pip install flask
-RUN pip install flask-sqlalchemy
+RUN pip install Pillow
+RUN pip install numpy
 
 EXPOSE 5000
-
 
 COPY ./ ./
 CMD [ "python", "./api.py" ]

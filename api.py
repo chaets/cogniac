@@ -28,7 +28,7 @@ def process_resize():
     file = request.files['image']
     payload = request.form.to_dict()
     file.save('./im-received.jpg')
-    print(payload)
+
     if payload!={}:
         res = Augmentation.get_resize('./im-received.jpg', int(payload['lengthScale']), (int(payload['breadthScale'])))
     else:
